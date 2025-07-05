@@ -43,8 +43,8 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 .project-card-2 { 
-    background: linear-gradient(45deg, #3b82f6, #60a5fa);
-    filter: blur(2px);
+    background: linear-gradient(45deg, #f63b3b, #fa6060);
+    backdrop-filter: blur(10px);
     opacity: 0.9;
 }
 .project-card-3 { 
@@ -53,6 +53,13 @@ body {
 }
 .project-card-4 { 
     background: linear-gradient(135deg, #ffedd5, #fed7aa);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.project-card-5 { 
+    background: linear-gradient(135deg, #5145fc, #3fb7fd);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 .internship-card-1 { 
     background: linear-gradient(135deg, rgba(236, 72, 153, 0.7), rgba(244, 63, 94, 0.7));
@@ -83,4 +90,33 @@ body {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+}/* Unique styles for each project card */
+.project-card-1 {
+  background: linear-gradient(135deg, #f472b6, #8b5cf6);
+}
+.project-card-2 {
+  background: linear-gradient(135deg, #3b82f6, #06b6d4);
+}
+.project-card-3 {
+  background: linear-gradient(135deg, #10b981, #16a34a);
+}
+.project-card-4 {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+.project-card-5 {
+  background: linear-gradient(135deg, #ec4899, #f43f5e);
+}
+.project-card-6 {
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
+}
+
+/* Unique styles for each internship card */
+.internship-card-1 {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
+.internship-card-2 {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+}
+.internship-card-3 {
+  background: linear-gradient(135deg, #f59e0b, #16a34a);
 }
