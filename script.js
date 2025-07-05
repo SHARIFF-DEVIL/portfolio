@@ -53,12 +53,28 @@ const chatInput = document.getElementById('chat-input');
 const chatOutput = document.getElementById('chat-output');
 const chatSend = document.getElementById('chat-send');
 const responses = {
-    'hi': 'Hello! How can I assist you today?',
-    'hello': 'Hi there! Feel free to ask about my projects or internships.',
-    'projects': 'Check out my Projects section! I’ve built a Gemini AI chatbot, a weather app, and more.',
-    'internships': 'My Internships section details my experiences at Tech Corp, AI Lab, and others.',
-    'contact': 'You can reach me via the Contact section or email me directly!',
-    'default': 'Sorry, I didn’t catch that. Try saying "hi", "projects", or "contact".'
+    'hi': 'Hello! I’m Mohammed Shabar, a B.Tech student at SRM IST, passionate about IoT, AI, and embedded systems. Ask me about my projects, internships, or anything else!',
+    'hello': 'Hi there! I’m a second-year ECE student with a 9.535 CGPA. Want to know about my work in IoT, AI, or my leadership roles? Just ask!',
+    'projects': 'Check out my Projects section! I’ve built cool stuff like a Voice-Nav Obsta Car, a Harassment Detection Camera, and a Life Saver system for fishermen. Want details on any specific project?',
+    'internships': 'My Internships section covers my work at Keltron (IoT), Unified Mentor (Data Analyst), and Zidio Development (Data Science). Curious about what I did there? Let me know!',
+    'leadership': 'I’m Co-Treasurer at Matrix Club and Technical Head at IETE Club at SRM IST. I’ve organized tech events and hackathons. Want to hear about my leadership roles?',
+    'certifications': 'I’ve earned certifications in Python for Data Science, Design Thinking, Arduino Robotics, and more. Check the Certifications section or ask for specifics!',
+    'extracurriculars': 'I’ve hosted events like Block & Tackle, anchored college Annual Days, and organized technical and sports events. See the Extracurriculars section for more!',
+    'contact': 'Reach me at jafsamnazsha@gmail.com, +91 97909 26976, or via LinkedIn (linkedin.com/in/mohammed-shabar-8aa187277) and GitHub (github.com/SHARIFF-DEVIL). Drop a message in the Contact section!',
+    'skills': 'I’m skilled in C, C++, Python, HTML, MATLAB, Arduino IDE, and more. I also work with IoT, embedded systems, and circuit design. Want to know about a specific skill?',
+    'voice-nav obsta car': 'The Voice-Nav Obsta Car is a hands-free navigation system using Arduino UNO, Bluetooth, and Ultrasonic & IR Sensors for real-time obstacle detection. Cool, right? Want to know how I built it?',
+    'harassment detection camera': 'This project uses AI-based detection algorithms to identify harassment patterns via video analysis. It’s built with camera systems and AI tech. Interested in the tech details?',
+    'traffic signal controller': 'The Automatic Traffic Signal Controller uses Machine Learning and Image Processing for real-time traffic density analysis. It’s a smart solution for traffic management. Want more info?',
+    'life saver for fishermen': 'This non-GPS system prevents fishing boats from crossing maritime boundaries using Arduino Mega, Magnetometer, and RFM95. It’s designed to keep fishermen safe. Curious about its features?',
+    'gender classification': 'My Gender Classification project uses a Raspberry Pi and TensorFlow Lite for real-time gender detection from images. It’s a neat ML application. Want to dive into the tech stack?',
+    'chat bot': 'The Terminal-Based Chat Bot is a text-based conversational AI built with Python and Raspberry Pi. It uses NLTK or ChatterBot for engagement. Want to know how it works?',
+    'iot intern': 'At Keltron, I built IoT prototypes with Arduino and Raspberry Pi, focusing on MQTT communication and dashboard design. Ask me about my IoT projects!',
+    'data analyst': 'As a Data Analyst Intern at Unified Mentor, I used Excel, SQL, and Python to analyze datasets and build dashboards. Want to hear about the insights I uncovered?',
+    'data science': 'At Zidio Development, I worked on data-driven solutions using Python, SQL, and ML models, creating visualizations with Power BI/Tableau. Interested in my data science projects?',
+    'education': 'I’m a second-year B.Tech student in Electronics and Communication Engineering at SRM IST, Vadapalani, with a CGPA of 9.535. My core subjects include Circuit Theory and Signal Processing. Want to know more about my studies?',
+    'hobbies': 'I love hosting events, anchoring college programs, and organizing hackathons. I’m also into technical and sports events at SRM IST. Check out my Extracurriculars section!',
+    'who are you': 'I’m Mohammed Shabar, a passionate ECE student at SRM IST, skilled in IoT, AI, and embedded systems. I build innovative projects and lead tech events. Ask me anything about my work!',
+    'default': 'Oops, I didn’t quite get that. Try keywords like "hi", "projects", "internships", "leadership", "certifications", "skills", or ask about a specific project like "voice-nav obsta car".'
 };
 function addMessage(message, isUser) {
     const messageDiv = document.createElement('div');
@@ -81,3 +97,11 @@ chatInput.addEventListener('keypress', (e) => {
         chatSend.click();
     }
 });
+function openModal(title, desc) {
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalDesc').textContent = desc;
+    document.getElementById('internshipModal').classList.remove('hidden');
+}
+function closeModal() {
+    document.getElementById('internshipModal').classList.add('hidden');
+}
