@@ -1,0 +1,180 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <div id="particles-js"></div>
+    <div class="custom-cursor" id="custom-cursor"></div>
+    <nav class="bg-gray-800 dark:bg-gray-900 text-white fixed w-full top-0 z-20 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <h1 class="text-2xl font-bold">Your Name</h1>
+                <div class="flex items-center space-x-4">
+                    <a href="#home" class="hover:bg-pink-700 px-3 py-2 rounded-md transition">Home</a>
+                    <a href="#about" class="hover:bg-pink-700 px-3 py-2 rounded-md transition">About</a>
+                    <a href="#projects" class="hover:bg-pink-700 px-3 py-2 rounded-md transition">Projects</a>
+                    <a href="#internships" class="hover:bg-pink-700 px-3 py-2 rounded-md transition">Internships</a>
+                    <a href="#chatbot" class="hover:bg-pink-700 px-3 py-2 rounded-md transition">Chatbot</a>
+                    <a href="#contact" class="hover:bg-pink-700 px-3 py-2 rounded-md transition">Contact</a>
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-pink-700">
+                        <svg id="theme-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section id="home" class="min-h-screen flex items-center justify-center text-white">
+        <div class="text-center fade-scale">
+            <h2 class="text-4xl sm:text-5xl font-bold mb-4">Welcome to My Portfolio</h2>
+            <p class="text-lg sm:text-xl mb-6 max-w-md mx-auto">I'm Your Name, a creative developer crafting AI-driven and web-based solutions with passion and precision.</p>
+            <a href="#projects" class="bg-pink-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-pink-700 transition hover-scale">Explore My Projects</a>
+        </div>
+    </section>
+    <section id="about" class="py-20 bg-white dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 slide-left">
+            <h2 class="text-3xl font-bold text-center mb-8">About Me</h2>
+            <p class="text-lg text-gray-700 dark:text-gray-300 text-center max-w-2xl mx-auto">
+                I'm a dedicated developer specializing in Python, JavaScript, and modern web technologies. 
+                My projects, like the Gemini AI chatbot, blend AI and user-friendly interfaces to solve real-world problems. 
+                I’m passionate about learning and building innovative solutions.
+            </p>
+        </div>
+    </section>
+    <section id="projects" class="py-20 bg-gray-100 dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-stagger">
+            <h2 class="text-3xl font-bold text-center mb-8">Projects</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-6 rounded-lg shadow-lg hover-scale project-card-1 text-white" style="--i: 1">
+                    <h3 class="text-xl font-semibold mb-2">Gemini AI Chatbot</h3>
+                    <p class="mb-4">A Python-based chatbot using Google's Gemini AI API for natural, engaging conversations.</p>
+                    <a href="https://github.com/your-username/gemini-chatbot" class="text-white hover:underline">View on GitHub</a>
+                </div>
+                <div class="p-6 rounded-lg shadow-lg hover-scale project-card-2 text-white" style="--i: 2">
+                    <h3 class="text-xl font-semibold mb-2">Weather App</h3>
+                    <p class="mb-4">A JavaScript-based app fetching real-time weather data with a clean, responsive UI.</p>
+                    <a href="#" class="text-white hover:underline">View on GitHub</a>
+                </div>
+                <div class="p-6 rounded-lg shadow-lg hover-scale project-card-3 text-white" style="--i: 3">
+                    <h3 class="text-xl font-semibold mb-2">Task Manager</h3>
+                    <p class="mb-4">A Flask-based web app for managing tasks with user authentication and CRUD operations.</p>
+                    <a href="#" class="text-white hover:underline">View on GitHub</a>
+                </div>
+                <div class="p-6 rounded-lg shadow-lg hover-scale project-card-4 text-gray-900 dark:text-gray-100" style="--i: 4">
+                    <h3 class="text-xl font-semibold mb-2">Portfolio Website</h3>
+                    <p class="mb-4">This responsive portfolio built with HTML, Tailwind CSS, and JavaScript, featuring animations.</p>
+                    <a href="#" class="text-pink-600 dark:text-pink-400 hover:underline">View on GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="internships" class="py-20 bg-white dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 slide-right">
+            <h2 class="text-3xl font-bold text-center mb-8">Internships</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-6 rounded-lg shadow-lg hover-scale internship-card-1 text-white" style="--i: 1">
+                    <h3 class="text-xl font-semibold mb-2">Software Development Intern</h3>
+                    <p class="mb-4">Tech Corp, Jun 2024 - Aug 2024: Developed web features using React and Node.js.</p>
+                    <a href="#" class="text-white hover:underline">Learn More</a>
+                </div>
+                <div class="p-6 rounded-lg shadow-lg hover-scale internship-card-2 text-white" style="--i: 2">
+                    <h3 class="text-xl font-semibold mb-2">AI Research Intern</h3>
+                    <p class="mb-4">AI Lab, Jan 2024 - May 2024: Worked on NLP models using Python and TensorFlow.</p>
+                    <a href="#" class="text-white hover:underline">Learn More</a>
+                </div>
+                <div class="p-6 rounded-lg shadow-lg hover-scale internship-card-3 text-white" style="--i: 3">
+                    <h3 class="text-xl font-semibold mb-2">Frontend Developer Intern</h3>
+                    <p class="mb-4">Startup Inc., Jul 2023 - Dec 2023: Built responsive UIs with HTML, CSS, and JavaScript.</p>
+                    <a href="#" class="text-white hover:underline">Learn More</a>
+                </div>
+                <div class="p-6 rounded-lg shadow-lg hover-scale internship-card-4 text-gray-900 dark:text-gray-100" style="--i: 4">
+                    <h3 class="text-xl font-semibold mb-2">Data Science Intern</h3>
+                    <p class="mb-4">Data Co., Jan 2023 - Jun 2023: Analyzed datasets using Python and Pandas for insights.</p>
+                    <a href="#" class="text-pink-600 dark:text-pink-400 hover:underline">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="chatbot" class="py-20 bg-gray-100 dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scale-rotate">
+            <h2 class="text-3xl font-bold text-center mb-8">Chat with Me</h2>
+            <div class="max-w-lg mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+                <div id="chat-output" class="h-64 overflow-y-auto mb-4 p-4 border rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100"></div>
+                <div class="flex space-x-2">
+                    <input id="chat-input" type="text" placeholder="Type a message..." class="flex-1 p-3 border rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+                    <button id="chat-send" class="bg-pink-600 text-white px-4 py-3 rounded-lg hover:bg-pink-700 transition">Send</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="py-20 bg-white dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-bounce">
+            <h2 class="text-3xl font-bold text-center mb-8">Contact Me</h2>
+            <div class="max-w-lg mx-auto">
+                <p class="text-lg text-gray-700 dark:text-gray-300 text-center mb-6">
+                    Email: <a href="mailto:your.email@example.com" class="text-pink-600 dark:text-pink-400 hover:underline">your.email@example.com</a>
+                </p>
+                <div class="space-y-4">
+                    <input type="text" placeholder="Your Name" class="w-full p-3 border rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+                    <input type="email" placeholder="Your Email" class="w-full p-3 border rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+                    <textarea placeholder="Your Message" class="w-full p-3 border rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 h-32"></textarea>
+                    <button class="bg-pink-600 text-white px-6 py-3 rounded-lg w-full hover:bg-pink-700 transition">Send Message</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-gray-800 dark:bg-gray-900 text-white py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>© 2025 Your Name. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
