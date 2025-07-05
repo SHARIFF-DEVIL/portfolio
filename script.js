@@ -105,3 +105,24 @@ function openModal(title, desc) {
 function closeModal() {
     document.getElementById('internshipModal').classList.add('hidden');
 }
+const menuBtn = document.getElementById("menu-btn");
+const menu = document.getElementById("menu");
+
+menuBtn.addEventListener("click", () => {
+  menu.classList.toggle("hidden");
+  menu.classList.toggle("flex");
+  menu.classList.toggle("flex-col");
+  menu.classList.toggle("absolute");
+  menu.classList.toggle("top-16");
+  menu.classList.toggle("left-0");
+  menu.classList.toggle("w-full");
+  menu.classList.toggle("bg-gray-800");
+  menu.classList.toggle("z-50");
+});
+document.addEventListener("mousemove", (e) => {
+  const cursor = document.querySelector(".custom-cursor");
+  if (cursor) {
+    cursor.style.left = `${e.clientX}px`;
+    cursor.style.top = `${e.clientY}px`;
+  }
+});
