@@ -69,6 +69,7 @@
         <a href="#about" class="hover:bg-pink-700 px-3 py-2 rounded-md transition">About</a>
         <a href="#projects" class="hover:bg-pink-700 px-3 py-2 rounded-md transition">Projects</a>
         <a href="#internships" class="hover:bg-pink-700 px-3 py-2 rounded-md transition">Internships</a>
+        <a href="#Certificates" class="hover:bg-pink-700 px-3 py-2 rounded-md transition">Certificates</a>
         <a href="#chatbot" class="hover:bg-pink-700 px-3 py-2 rounded-md transition">Chatbot</a>
         <a href="#contact" class="hover:bg-pink-700 px-3 py-2 rounded-md transition">Contact</a>
         <button id="theme-toggle" class="p-2 rounded-full hover:bg-pink-700">
@@ -80,16 +81,17 @@
     </div>
     </div>
 </nav>
+
     <section id="home" class="min-h-screen flex items-center justify-center text-white">
         <div class="text-center fade-scale">
-            <h2 class="text-4xl sm:text-5xl font-bold mb-4">Welcome to My Portfolio</h2>
+            <h2 class="text-4xl sm:text-5xl font-bold mb-4">WELCOME TO MY PORTFOLIO</h2>
             <p class="text-lg sm:text-xl mb-6 max-w-md mx-auto">I'm Mohammed Shabar, an ECE student with a passion for embedded systems, AI, and innovative problem-solving.</p>
             <a href="#projects" class="bg-pink-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-pink-700 transition hover-scale">Explore My Projects</a>
         </div>
     </section>
     <section id="about" class="py-20 bg-white dark:bg-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 slide-left">
-            <h2 class="text-3xl font-bold text-center mb-8">About Me</h2>
+            <h2 class="text-3xl font-bold text-center mb-8">ABOUT ME</h2>
             <p class="text-lg text-gray-700 dark:text-gray-300 text-center max-w-2xl mx-auto">
                 I’m a second-year Electronics and Communication Engineering student at SRM IST, Vadapalani. I specialize in embedded systems, AI, and IoT, and I'm driven by innovation and hands-on learning. I also lead technical initiatives as the Technical Head of IETE Club and Co-Treasurer of Matrix Club.
             </p>
@@ -125,6 +127,11 @@
                 <p class="mb-4">A data science project to analyze sales trends using Python, Pandas, and Matplotlib.</p>
                 <a href="https://github.com/SHARIFF-DEVIL/Sales_Analysis" class="text-white hover:underline">View on GitHub</a>
             </div>
+            <div class="p-6 rounded-lg shadow-lg hover-scale project-card-6 text-white" style="--i: 5">
+                <h3 class="text-xl font-semibold mb-2">Traffic Management</h3>
+                <p class="mb-4">A system that monitors and controls vehicle flow to reduce congestion, enhance safety, and optimize traffic movement.</p>
+                <a href="#" class="text-white hover:underline">View on GitHub</a>
+            </div>
         </div>
     </div>
 </section>
@@ -132,7 +139,7 @@
 <!-- Internships -->
 <section id="internships" class="py-20 bg-white dark:bg-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 slide-right">
-      <h2 class="text-3xl font-bold text-center mb-8">Internships</h2>
+      <h2 class="text-3xl font-bold text-center mb-8">INTERNSHIPS</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="p-6 rounded-lg shadow-lg hover-scale internship-card-1 text-white" style="--i: 1">
           <h3 class="text-xl font-semibold mb-2">IoT Intern – Keltron</h3>
@@ -141,7 +148,7 @@
         </div>
         <div class="p-6 rounded-lg shadow-lg hover-scale internship-card-2 text-white" style="--i: 2">
           <h3 class="text-xl font-semibold mb-2">Data Analyst – Unified Mentor</h3>
-          <p>Dec 2024</p>
+          <p>Dec 2024 - Jan 2025</p>
           <a href="#" onclick="openModal('Data Analyst – Unified Mentor', 'Analyzed datasets using SQL, Excel, and Python. Developed dashboards and insights for decision-making.')" class="text-white hover:underline">Learn More</a>
         </div>
         <div class="p-6 rounded-lg shadow-lg hover-scale internship-card-3 text-white" style="--i: 3">
@@ -161,9 +168,54 @@
       <hr class="my-4 border-gray-400 dark:border-gray-600" />
     </div>
   </div>
+  <section id="certificates" class="py-20 bg-gray-100 dark:bg-gray-900">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-scale">
+    <h2 class="text-3xl font-bold text-center mb-8">CERTIFICATES</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Certificate 1 -->
+      <div class="p-6 rounded-lg shadow-lg hover-scale internship-card-1 text-white">
+        <h3 class="text-xl font-semibold mb-2">Design Thinking – NPTEL</h3>
+        <p class="mb-2">Completed: April 2025</p>
+        <button onclick="openCertModal('assets/cert1.jpg')" class="underline text-white hover:text-pink-200">View Certificate</button>
+      </div>
+      <!-- Certificate 2 -->
+      <div class="p-6 rounded-lg shadow-lg hover-scale internship-card-2 text-white">
+        <h3 class="text-xl font-semibold mb-2">Smart India Hackathon – SRMIST Vadapalani</h3>
+        <p class="mb-2">Completed: September 2024</p>
+        <button onclick="openCertModal('assets/cert2.jpg')" class="underline text-white hover:text-pink-200">View Certificate</button>
+      </div>
+      <!-- Certificate 3 -->
+      <div class="p-6 rounded-lg shadow-lg hover-scale internship-card-3 text-white">
+        <h3 class="text-xl font-semibold mb-2">Arduino Workshop – Top Engineers</h3>
+        <p class="mb-2">Completed: December 2023</p>
+        <button onclick="openCertModal('assets/cert3.jpg')" class="underline text-white hover:text-pink-200">View Certificate</button>
+      </div>
+      <!-- Certificate 4 -->
+      <div class="p-6 rounded-lg shadow-lg hover-scale internship-card-4 text-white">
+        <h3 class="text-xl font-semibold mb-2">Data Analyst – Unified Mentor</h3>
+        <p class="mb-2">Completed: August 2024</p>
+        <button onclick="openCertModal('assets/cert4.jpg')" class="underline text-white hover:text-pink-200">View Certificate</button>
+      </div>
+      <!-- Certificate 5 -->
+      <div class="p-6 rounded-lg shadow-lg hover-scale internship-card-5 text-white">
+        <h3 class="text-xl font-semibold mb-2">Python for Data Science – NPTEL</h3>
+        <p class="mb-2">Completed: July 2024</p>
+        <button onclick="openCertModal('assets/cert5.jpg')" class="underline text-white hover:text-pink-200">View Certificate</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Certificate Modal -->
+<div id="certModal" class="fixed inset-0 z-50 bg-black bg-opacity-70 hidden items-center justify-center">
+  <div class="relative max-w-3xl w-full mx-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
+    <button onclick="closeCertModal()" class="absolute top-2 right-4 text-2xl text-gray-700 dark:text-gray-300">&times;</button>
+    <img id="certImage" src="" alt="Certificate" class="w-full max-h-[80vh] object-contain rounded-lg" />
+  </div>
+</div>
     <section id="chatbot" class="py-20 bg-gray-100 dark:bg-gray-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scale-rotate">
-            <h2 class="text-3xl font-bold text-center mb-8">Chat with Me</h2>
+            <h2 class="text-3xl font-bold text-center mb-8">CHAT WITH ME</h2>
             <div class="max-w-lg mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
                 <div id="chat-output" class="h-64 overflow-y-auto mb-4 p-4 border rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100"></div>
                 <div class="flex space-x-2">
@@ -173,9 +225,10 @@
             </div>
         </div>
     </section>
+
     <section id="contact" class="py-20 bg-white dark:bg-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-bounce">
-            <h2 class="text-3xl font-bold text-center mb-8">Contact Me</h2>
+            <h2 class="text-3xl font-bold text-center mb-8">CONTACT ME</h2>
             <div class="max-w-lg mx-auto">
                 <p class="text-lg text-gray-700 dark:text-gray-300 text-center mb-6">
                     Email: <a href="mailto:jafsamnazsha@gmail.com" class="text-pink-600 dark:text-pink-400 hover:underline">jafsamnazsha@gmail.com</a>
