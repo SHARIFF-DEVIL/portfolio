@@ -126,3 +126,31 @@ document.addEventListener("mousemove", (e) => {
     cursor.style.top = `${e.clientY}px`;
   }
 });
+function openCertModal(imageSrc) {
+  const modal = document.getElementById("certModal");
+  const image = document.getElementById("certImage");
+  image.src = imageSrc;
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+}
+
+function closeCertModal() {
+  const modal = document.getElementById("certModal");
+  modal.classList.add("hidden");
+  modal.classList.remove("flex");
+}function moveCursor(x, y) {
+    cursor.style.left = x + 'px';
+    cursor.style.top = y + 'px';
+}
+
+// Mouse support
+document.addEventListener('mousemove', (e) => {
+    moveCursor(e.clientX, e.clientY);
+});
+
+// Touch support
+document.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+        moveCursor(e.touches[0].clientX, e.touches[0].clientY);
+    }
+});
