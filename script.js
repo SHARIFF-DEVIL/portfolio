@@ -1,211 +1,156 @@
-body { 
-    font-family: 'Poppins', sans-serif; 
-    cursor: none; 
-    scroll-behavior: smooth; 
+particlesJS('particles-js', {
+    particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: '#f472b6' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.5, random: true },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: '#f472b6', opacity: 0.4, width: 1 },
+        move: { enable: true, speed: 2, direction: 'none', random: false, straight: false }
+    },
+    interactivity: {
+        detect_on: 'canvas',
+        events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' }, resize: true },
+        modes: { grab: { distance: 140, line_linked: { opacity: 1 } }, push: { particles_nb: 4 } }
+    },
+    retina_detect: true
+});
+const cursor = document.getElementById('custom-cursor');
+document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('a, button, .hover-scale').forEach(elem => {
+    elem.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+    elem.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+});
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    themeIcon.innerHTML = document.body.classList.contains('dark') 
+        ? '<path d="M12 3v1m0 12v1m4.36-10.36l.707.707M6.34 6.34l.707-.707m5.66 9.9l.707-.707M6.34 13.66l.707.707M3 8h1m12 0h1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'
+        : '<path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z" fill="currentColor"/>';
+});
+const sections = document.querySelectorAll('.fade-scale, .slide-left, .fade-stagger, .slide-right, .scale-rotate, .fade-bounce');
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1 });
+sections.forEach(section => observer.observe(section));
+const chatInput = document.getElementById('chat-input');
+const chatOutput = document.getElementById('chat-output');
+const chatSend = document.getElementById('chat-send');
+const responses = {
+    'hi': 'Hello! I’m Mohammed Shabar, a B.Tech student at SRM IST, passionate about IoT, AI, and embedded systems. Ask me about my projects, internships, or anything else!',
+    'hello': 'Hi there! I’m a second-year ECE student with a 9.535 CGPA. Want to know about my work in IoT, AI, or my leadership roles? Just ask!',
+    'projects': 'Check out my Projects section! I’ve built cool stuff like a Voice-Nav Obsta Car, a Harassment Detection Camera, and a Life Saver system for fishermen. Want details on any specific project?',
+    'internships': 'My Internships section covers my work at Keltron (IoT), Unified Mentor (Data Analyst), and Zidio Development (Data Science). Curious about what I did there? Let me know!',
+    'leadership': 'I’m Co-Treasurer at Matrix Club and Technical Head at IETE Club at SRM IST. I’ve organized tech events and hackathons. Want to hear about my leadership roles?',
+    'certifications': 'I’ve earned certifications in Python for Data Science, Design Thinking, Arduino Robotics, and more. Check the Certifications section or ask for specifics!',
+    'extracurriculars': 'I’ve hosted events like Block & Tackle, anchored college Annual Days, and organized technical and sports events. See the Extracurriculars section for more!',
+    'contact': 'Reach me at jafsamnazsha@gmail.com, +91 97909 26976, or via LinkedIn (linkedin.com/in/mohammed-shabar-8aa187277) and GitHub (github.com/SHARIFF-DEVIL). Drop a message in the Contact section!',
+    'skills': 'I’m skilled in C, C++, Python, HTML, MATLAB, Arduino IDE, and more. I also work with IoT, embedded systems, and circuit design. Want to know about a specific skill?',
+    'voice-nav obsta car': 'The Voice-Nav Obsta Car is a hands-free navigation system using Arduino UNO, Bluetooth, and Ultrasonic & IR Sensors for real-time obstacle detection. Cool, right? Want to know how I built it?',
+    'harassment detection camera': 'This project uses AI-based detection algorithms to identify harassment patterns via video analysis. It’s built with camera systems and AI tech. Interested in the tech details?',
+    'traffic signal controller': 'The Automatic Traffic Signal Controller uses Machine Learning and Image Processing for real-time traffic density analysis. It’s a smart solution for traffic management. Want more info?',
+    'life saver for fishermen': 'This non-GPS system prevents fishing boats from crossing maritime boundaries using Arduino Mega, Magnetometer, and RFM95. It’s designed to keep fishermen safe. Curious about its features?',
+    'gender classification': 'My Gender Classification project uses a Raspberry Pi and TensorFlow Lite for real-time gender detection from images. It’s a neat ML application. Want to dive into the tech stack?',
+    'chat bot': 'The Terminal-Based Chat Bot is a text-based conversational AI built with Python and Raspberry Pi. It uses NLTK or ChatterBot for engagement. Want to know how it works?',
+    'iot intern': 'At Keltron, I built IoT prototypes with Arduino and Raspberry Pi, focusing on MQTT communication and dashboard design. Ask me about my IoT projects!',
+    'data analyst': 'As a Data Analyst Intern at Unified Mentor, I used Excel, SQL, and Python to analyze datasets and build dashboards. Want to hear about the insights I uncovered?',
+    'data science': 'At Zidio Development, I worked on data-driven solutions using Python, SQL, and ML models, creating visualizations with Power BI/Tableau. Interested in my data science projects?',
+    'education': 'I’m a second-year B.Tech student in Electronics and Communication Engineering at SRM IST, Vadapalani, with a CGPA of 9.535. My core subjects include Circuit Theory and Signal Processing. Want to know more about my studies?',
+    'hobbies': 'I love hosting events, anchoring college programs, and organizing hackathons. I’m also into technical and sports events at SRM IST. Check out my Extracurriculars section!',
+    'who are you': 'I’m Mohammed Shabar, a passionate ECE student at SRM IST, skilled in IoT, AI, and embedded systems. I build innovative projects and lead tech events. Ask me anything about my work!',
+    'default': 'Oops, I didn’t quite get that. Try keywords like "hi", "projects", "internships", "leadership", "certifications", "skills", or ask about a specific project like "voice-nav obsta car".'
+};
+function addMessage(message, isUser) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = isUser ? 'text-right mb-2' : 'text-left mb-2';
+    messageDiv.innerHTML = `<span class="${isUser ? 'bg-pink-600 text-white' : 'bg-gray-200 dark:bg-gray-600 dark:text-gray-100'} inline-block px-4 py-2 rounded-lg">${message}</span>`;
+    chatOutput.appendChild(messageDiv);
+    chatOutput.scrollTop = chatOutput.scrollHeight;
 }
-section {
-    word-wrap: break-word;
-    overflow-x: hidden;
-}
-
-.custom-cursor {
-    position: fixed;
-    width: 12px;
-    height: 12px;
-    background: rgba(236, 72, 153, 0.8);
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s ease, opacity 0.2s ease;
-    z-index: 9999;
-    box-shadow: 0 0 10px rgba(236, 72, 153, 0.5), 0 0 20px rgba(236, 72, 153, 0.3);
-}
-.custom-cursor.hovered {
-    transform: translate(-50%, -50%) scale(1.5);
-    background: rgba(244, 114, 182, 0.9);
-    box-shadow: 0 0 15px rgba(244, 114, 182, 0.6);
-}
-.fade-scale { opacity: 0; transform: scale(0.9); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-.fade-scale.visible { opacity: 1; transform: scale(1); }
-.slide-left { opacity: 0; transform: translateX(-50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-.slide-left.visible { opacity: 1; transform: translateX(0); }
-.fade-stagger { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-.fade-stagger.visible { opacity: 1; transform: translateY(0); }
-.fade-stagger > * { transition-delay: calc(0.1s * var(--i)); }
-.slide-right { opacity: 0; transform: translateX(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-.slide-right.visible { opacity: 1; transform: translateX(0); }
-.scale-rotate { opacity: 0; transform: scale(0.8) rotate(5deg); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-.scale-rotate.visible { opacity: 1; transform: scale(1) rotate(0); }
-.fade-bounce { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
-.fade-bounce.visible { opacity: 1; transform: translateY(0); }
-.hover-scale { transition: transform 0.3s ease; }
-.hover-scale:hover { transform: scale(1.05); }
-#particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
-.project-card-1 { 
-    background: linear-gradient(135deg, rgba(244, 114, 182, 0.7), rgba(75, 0, 130, 0.7));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-.project-card-2 { 
-    background: linear-gradient(45deg, #f63b3b, #fa6060);
-    backdrop-filter: blur(10px);
-    opacity: 0.9;
-}
-.project-card-3 { 
-    background: linear-gradient(90deg, #064e3b, #10b981);
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
-}
-.project-card-4 { 
-    background: linear-gradient(135deg, #ffedd5, #fed7aa);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-.project-card-5 { 
-    background: linear-gradient(135deg, #5145fc, #3fb7fd);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-.internship-card-1 { 
-    background: linear-gradient(135deg, rgba(236, 72, 153, 0.7), rgba(244, 63, 94, 0.7));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-.internship-card-2 { 
-    background: #6d28d9;
-    opacity: 0.95;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
-}
-.internship-card-3 { 
-    background: linear-gradient(90deg, #f59e0b, #d97706);
-    opacity: 0.9;
-}
-.internship-card-4 { 
-    background: linear-gradient(90deg, rgba(229, 231, 235, 0.8), rgba(243, 244, 246, 0.8));
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-.internship-card-5 { 
-    background: linear-gradient(135deg, rgba(236, 72, 153, 0.7), rgba(244, 63, 94, 0.7));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-.dark .project-card-4 { 
-    background: linear-gradient(135deg, #44403c, #57534e);
-}
-.dark .internship-card-4 { 
-    background: linear-gradient(90deg, rgba(55, 65, 81, 0.8), rgba(31, 41, 55, 0.8));
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}/* Unique styles for each project card */
-.project-card-1 {
-  background: linear-gradient(135deg, #f472b6, #8b5cf6);
-}
-.project-card-2 {
-  background: linear-gradient(135deg, #3b82f6, #06b6d4);
-}
-.project-card-3 {
-  background: linear-gradient(135deg, #10b981, #16a34a);
-}
-.project-card-4 {
-  background: linear-gradient(135deg, #f59e0b, #ef4444);
-}
-.project-card-5 {
-  background: linear-gradient(135deg, #ec4899, #f43f5e);
-}
-.project-card-6 {
-  background: linear-gradient(135deg, #4f46e5, #9333ea);
-}
-
-/* Unique styles for each internship card */
-.internship-card-1 {
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
-}
-.internship-card-2 {
-  background: linear-gradient(135deg, #8b5cf6, #ec4899);
-}
-.internship-card-3 {
-  background: linear-gradient(135deg, #f59e0b, #16a34a);
-}
-.header {
-  background: #1f2937;
-  color: white;
-  padding: 2rem;
-  text-align: center;
-}
-
-.cert-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
-}
-
-.certificate-card {
-  background: white;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.certificate-card button {
-  margin-top: 1rem;
-  padding: 0.6rem 1.2rem;
-  background: #ec4899;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.certificate-card button:hover {
-  background: #db2777;
-}
-
-/* Modal Styling */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  max-width: 90%;
-  max-height: 90%;
-  border: 4px solid white;
-  border-radius: 10px;
-}
-
-.close {
-  position: absolute;
-  top: 30px;
-  right: 40px;
-  font-size: 40px;
-  color: white;
-  cursor: pointer;
-}
-#particles-js {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -10; /* ensure it's behind everything */
-    pointer-events: none;
-}
-@media (max-width: 768px) {
-    .custom-cursor {
-        width: 20px;
-        height: 20px;
+chatSend.addEventListener('click', () => {
+    const message = chatInput.value.trim().toLowerCase();
+    if (message) {
+        addMessage(message, true);
+        const response = responses[message] || responses['default'];
+        setTimeout(() => addMessage(response, false), 500);
+        chatInput.value = '';
     }
+});
+chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        chatSend.click();
+    }
+});
+function openModal(title, desc) {
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalDesc').textContent = desc;
+    document.getElementById('internshipModal').classList.remove('hidden');
 }
+function closeModal() {
+    document.getElementById('internshipModal').classList.add('hidden');
+}
+const menuBtn = document.getElementById("menu-btn");
+const menu = document.getElementById("menu");
+
+menuBtn.addEventListener("click", () => {
+  menu.classList.toggle("hidden");
+  menu.classList.toggle("flex");
+  menu.classList.toggle("flex-col");
+  menu.classList.toggle("absolute");
+  menu.classList.toggle("top-16");
+  menu.classList.toggle("left-0");
+  menu.classList.toggle("w-full");
+  menu.classList.toggle("bg-gray-800");
+  menu.classList.toggle("z-50");
+});
+document.addEventListener("mousemove", (e) => {
+  const cursor = document.querySelector(".custom-cursor");
+  if (cursor) {
+    cursor.style.left = `${e.clientX}px`;
+    cursor.style.top = `${e.clientY}px`;
+  }
+});
+function openCertModal(imageSrc) {
+  const modal = document.getElementById("certModal");
+  const image = document.getElementById("certImage");
+  image.src = imageSrc;
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+}
+
+function closeCertModal() {
+  const modal = document.getElementById("certModal");
+  modal.classList.add("hidden");
+  modal.classList.remove("flex");
+}function moveCursor(x, y) {
+    cursor.style.left = x + 'px';
+    cursor.style.top = y + 'px';
+}
+
+// Mouse support
+document.addEventListener('mousemove', (e) => {
+    moveCursor(e.clientX, e.clientY);
+});
+
+// Touch support
+document.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+        moveCursor(e.touches[0].clientX, e.touches[0].clientY);
+    }
+});
